@@ -1,0 +1,86 @@
+heat_template_version: 2016-04-08
+
+description: >
+  ONOS SDN Controller.
+
+parameters:
+  ONOSPort:
+    default: 8181
+    description: Set onos service port
+    type: number
+  ONOSUsername:
+    default: 'admin'
+    description: The username for the onos server.
+    type: string
+  ONOSPassword:
+    default: 'admin'
+    type: string
+    description: The password for the onos server.
+    hidden: true
+  ONOSConnectionProtocol:
+    description: L7 protocol used for REST access
+    type: string
+    default: 'http'
+  ONOSEnableL3:
+    description: Knob to enable/disable ODL L3
+    type: string
+    default: 'no'
+  ONOSEnableDHCP:
+    description: Knob to enable/disable ODL DHCP Server
+    type: boolean
+    default: false
+  ONOSFeatures:
+    description: List of features to install with ODL
+    type: comma_delimited_list
+    default: ["odl-netvirt-openstack","odl-netvirt-ui","odl-jolokia"]
+  ONOSApiVirtualIP:
+    type: string
+    default: ''
+  ONOSPortBindingController:
+    description: ONOS port binding controller
+    type: string
+    default: ''
+  ONOSHostconfURI:
+    description: URI for neutron hostconfig in ONOS.
+    type: string
+    default: ''
+  EndpointMap:
+    default: {}
+    description: Mapping of service endpoint -> protocol. Typically set
+                 via parameter_defaults in the resource registry.
+    type: json
+  ServiceNetMap:
+    default: {}
+    description: Mapping of service_name -> network name. Typically set
+                 via parameter_defaults in the resource registry.  This
+                 mapping overrides those in ServiceNetMapDefaults.
+    type: json
+  DefaultPasswords:
+    default: {}
+    type: json
+
+outputs:
+  role_data:
+    description: Role data for the ONOS service.
+    value:
+      service_name: onos_api
+      config_settings:
+        onos::odl_rest_port: {get_param: ONOSPort}
+        onos::username: {get_param: ONOSUsername}
+        onos::password: {get_param: ONOSPassword}
+        onos::enable_l3: {get_param: ONOSEnableL3}
+        onos::extra_features: {get_param: ONOSFeatures}
+        onos::enable_dhcp: {get_param: ONOSEnableDHCP}
+        onos::odl_bind_ip: {get_param: [ServiceNetMap, OpendaylightApiNetwork]}
+        onos::nb_connection_protocol: {get_param: ONOSConnectionProtocol}
+        neutron::plugins::ml2::onos::port_binding_controller: {get_param: ONOSPortBindingController}
+        neutron::plugins::ml2::onos::odl_hostconf_uri: {get_param: ONOSHostconfURI}
+        tripleo.onos_api.firewall_rules:
+              '137 onos api':
+                dport:
+                  - {get_param: ONOSPort}
+                  - 6640
+                  - 6653
+                  - 2550
+      step_config: |
+        include tripleo::profile::base::neutron::onos
