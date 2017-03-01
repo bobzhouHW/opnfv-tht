@@ -4,7 +4,7 @@ resource_registry:
   OS::TripleO::Services::ComputeNeutronOvsAgent: OS::Heat::None
   OS::TripleO::Services::ComputeNeutronCorePlugin: OS::Heat::None
   OS::TripleO::Services::ONOSApi: ../puppet/services/onos-api.yaml
-#  OS::TripleO::Services::OpenDaylightOvs: ../puppet/services/opendaylight-ovs.yaml
+  OS::TripleO::Services::ONOSOvs: ../puppet/services/onos-ovs.yaml
   OS::TripleO::Services::NeutronL3Agent: OS::Heat::None
 
 parameter_defaults:

@@ -1,0 +1,19 @@
+heat_template_version: 2016-04-08
+
+description: >
+  Onos OVS Configuration.
+
+
+outputs:
+  role_data:
+    description: Role data for the Onos service.
+    value:
+      service_name: onos_ovs
+        tripleo.onos_ovs.firewall_rules:
+          '118 neutron vxlan networks':
+             proto: 'udp'
+             dport: 4789
+          '136 neutron gre networks':
+             proto: 'gre'
+      step_config: |
+        include tripleo::profile::base::neutron::plugins::ovs::onos

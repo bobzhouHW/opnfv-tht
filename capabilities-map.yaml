@@ -340,6 +340,11 @@ topics:
             description: Enables OpenDaylight with L3 DVR
             requires:
               - overcloud-resource-registry-puppet.yaml
+          - file: environments/neutron-onos.yaml
+            title: ONOS with L2/L3 DVR
+            description: Enables ONOS with L2/L3 DVR
+            requires:
+              - overcloud-resource-registry-puppet.yaml
           - file: environments/neutron-ovs-dpdk.yaml
             title: DPDK with OVS
             description: Deploy DPDK with OVS
