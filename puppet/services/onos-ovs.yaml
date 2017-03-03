@@ -2,6 +2,62 @@ heat_template_version: 2016-04-08
 
 description: >
   Onos OVS Configuration.
+parameters:
+  ONOSPort:
+    default: 8081
+    description: Set onos service port
+    type: number
+  ONOSUsername:
+    default: 'admin'
+    description: The username for the onos server.
+    type: string
+  ONOSPassword:
+    default: 'admin'
+    type: string
+    description: The password for the onos server.
+    hidden: true
+  ONOSConnectionProtocol:
+    description: L7 protocol used for REST access
+    type: string
+    default: 'http'
+  ONOSEnableL3:
+    description: Knob to enable/disable ODL L3
+    type: string
+    default: 'no'
+  ONOSEnableDHCP:
+    description: Knob to enable/disable ODL DHCP Server
+    type: boolean
+    default: false
+  ONOSFeatures:
+    description: List of features to install with ODL
+    type: comma_delimited_list
+    default: ["odl-netvirt-openstack","odl-netvirt-ui","odl-jolokia"]
+  ONOSApiVirtualIP:
+    type: string
+    default: ''
+  ONOSPortBindingController:
+    description: ONOS port binding controller
+    type: string
+    default: ''
+  ONOSHostconfURI:
+    description: URI for neutron hostconfig in ONOS.
+    type: string
+    default: ''
+  EndpointMap:
+    default: {}
+    description: Mapping of service endpoint -> protocol. Typically set
+                 via parameter_defaults in the resource registry.
+    type: json
+  ServiceNetMap:
+    default: {}
+    description: Mapping of service_name -> network name. Typically set
+                 via parameter_defaults in the resource registry.  This
+                 mapping overrides those in ServiceNetMapDefaults.
+    type: json
+  DefaultPasswords:
+    default: {}
+    type: json
+
 
 
 outputs:
