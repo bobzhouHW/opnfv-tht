@@ -9,6 +9,7 @@ outputs:
     description: Role data for the Onos service.
     value:
       service_name: onos_ovs
+      config_settings:
         tripleo.onos_ovs.firewall_rules:
           '118 neutron vxlan networks':
              proto: 'udp'

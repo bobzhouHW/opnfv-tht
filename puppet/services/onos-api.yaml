@@ -5,7 +5,7 @@ description: >
 
 parameters:
   ONOSPort:
-    default: 8181
+    default: 8081
     description: Set onos service port
     type: number
   ONOSUsername:
