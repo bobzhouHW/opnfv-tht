@@ -4,6 +4,11 @@ description: >
   ONOS SDN Controller.
 
 parameters:
+  ONOSPort:
+    default: 8181
+    description: Set onos service port
+    type: number
+ 
   EndpointMap:
     default: {}
     description: Mapping of service endpoint -> protocol. Typically set
